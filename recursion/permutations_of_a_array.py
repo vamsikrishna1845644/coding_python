@@ -5,7 +5,9 @@ def permutations(arr):
     temp = []
     recursive(arr, map ,ans ,temp)
     return ans
-def recursive(arr, map ,ans ,temp):
+
+
+def recursive(arr, map, ans, temp):
     n = len(arr)
     # base case
     if len(temp) == len(arr):
@@ -17,8 +19,9 @@ def recursive(arr, map ,ans ,temp):
             temp.append(arr[i])
             map[i] = 1
             recursive(arr,map,ans,temp)
-            #pop then to explore other routes
+            #  then to explore other routes
             temp.pop()
             del map[i]
 
-print(permutations([1, 2, 3]))
+
+print(f"{permutations([1, 2, 3, 9, 10, 45, 7])} ")
