@@ -4,18 +4,21 @@ class Node:
         self.left = None
         self.right = None
 
-# preorder_travesal( root - left - right)
 
-def preorder(node, ans):
+def postorder(node):
+    stack1=  []
+    stack2 = []
+    stack1.append(node)
+    while(stack1):
+        element = stack1.pop()
+        stack2.append(element.data)
+        if element.left is not None:
+            stack1.append(element.left)
+        if element.right is not None:
+            stack1.append(element.right)
+    return stack2[::-1] # we should return in revrse order
 
-    # base case
-    if (node == None):
-        return
-    
-    #print(node.data) # prints root
-    ans.append(node.data)
-    preorder(node.left) # goes to left
-    preorder(node.right) # goes to right
+
 
 if __name__ == "__main__":
 # Create the root node
@@ -31,8 +34,7 @@ if __name__ == "__main__":
     root.right.right = Node(6) # Note: The left child of 3 is None
 
 # --- Test your function ---
-    print("Preorder Traversal:")
-    preorder(root)
+    print(postorder(root))
 
 '''
       1
@@ -40,4 +42,4 @@ if __name__ == "__main__":
     2   3
    / \   \
   4   5   6
-'''
+  '''
