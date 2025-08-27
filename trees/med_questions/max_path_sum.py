@@ -8,5 +8,5 @@ class Solution:
             return 0
         left = max(0,self.recursive(node.left,maxi))
         right = max(0,self.recursive(node.right,maxi))
-        maxi = max(maxi , left + right + node.val)
+        maxi[0] = max(maxi[0] , left + right + node.val)
         return node.val + max(left,right)
