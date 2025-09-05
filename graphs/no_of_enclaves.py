@@ -75,7 +75,7 @@ class Solution:
         
         while q:
             row,col = q.popleft()
-            # check in 4 directions
+            # check in 4 direction
             directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
             for delr,delc in directions:
                 newr = row + delr
