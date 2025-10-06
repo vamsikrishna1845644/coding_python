@@ -1,22 +1,76 @@
-print("hello")
-#why are u here\
-# is the keyboard working fine
-# indeed its is working fine 
-# is it better than the laptop keybord 
-# yes i think so because i can easily type faster on this keyboard
-# what else do u think abt this keyboard , i think i can easily type faster in this keyboars it has red switches
-#ntg
-# this is just a tyiping test , dont take anything seriously as this is just for purposes only 
-# i hope u guys dont mind me typing likes this as i am getting better anjd better with each keystroke nthe keys dance across the keyboard just like that\
-# thisdosnt mak any sense
-# not evrythig does not wevrythig has to
-for i in range(100):
-    print("nothiung")
+from typing import Optional
+# Definition for singly-linked list.
+class ListNode:
+     def __init__(self, val=0, next=None):
+         self.val = val
+         self.next = next
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        # trail to test my new keyboard
+        # doing in normal method
+        if head is not None:
+            right = head.next # pointer to the right of head
+        else:
+            return None
+        left = None # this is the left most pointer
+        temp = head
+        while temp is not None:
+            temp.next = left
+            left = temp
+            temp = right
+            if right is not None:
+                right = right.next
+            else:
+                right = None
+        return left
+    def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        # find the lenght of the ll
+        temp = head
+        count = 0
+        while temp:
+            count+=1
+            temp = temp.next
+        
+        middle = count//2 + 1
+        temp = head
 
-arr = []
-i = 12
-for j in range(1000):
-    arr.append(i+1) # this is a dummy function thats it
-# print the final function here 
-print(arr) # printing the final array here 
-# these are dummy this dont take anything serously
+        while middle!=1 and temp:
+            middle-=1
+            temp = temp.next
+            
+        
+        return temp
+    class Solution:
+        def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+            # we know this from the merge sort video
+            temp = ListNode(0)
+            head = temp
+            temp1 = list1
+            temp2 = list2
+
+            while temp1 is not None and temp2 is not None:
+                if ( temp1 is not None and temp2 is not None) and temp1.val>=temp2.val:
+                    temp.next = temp2
+                    temp = temp.next
+                    temp2 = temp2.next
+                if ( temp1 is not None and temp2 is not None) and temp1.val<temp2.val:
+                    temp.next = temp1
+                    temp = temp.next
+                    temp1 = temp1.next
+            # we still have to nadd the remaining elemnets
+            while temp1 is None and temp2 is not None:
+                # add the remainig temp2 elements
+                temp.next = temp2
+                temp = temp.next
+                temp2 = temp2.next
+            while temp1 is not None and temp2 is None:
+                # add the remainig temp2 elements
+                temp.next = temp1
+                temp = temp.next
+                temp1 = temp1.next
+            return head.next
+
+
+
+
+
