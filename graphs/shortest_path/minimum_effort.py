@@ -1,35 +1,38 @@
 import heapq
+from typing import List
+
 class Solution:
     def minimumEffortPath(self, heights: List[List[int]]) -> int:
-        # trying this question
-        # without comments
-        n = len(heights)
-        m  = len(heights[0])
+        n, m = len(heights), len(heights[0])
         if n == 1 and m == 1:
-            return 0
-        dist  = [[float('inf')]*m for _ in range(n)]
+            return 0  # single cell → no effort needed
 
-        pq = []
-        # instead of path lenght 
-        # lets try storing the absolute diff
-        heapq.heappush(pq,(0,0,0))
+        # Distance matrix (stores min effort to reach each cell)
+        dist = [[float('inf')] * m for _ in range(n)]
+        dist[0][0] = 0
+
+        # Min-heap -> (effort_so_far, row, col)
+        pq = [(0, 0, 0)]
+        delr = [0, -1, 0, 1]
+        delc = [-1, 0, 1, 0]
 
         while pq:
-            difference , Row,Col = heapq.heappop(pq)
+            difference, Row, Col = heapq.heappop(pq)
 
-            # check if 4 directions
-            delr = [0,-1,0,1]
-            delc = [-1,0,1,0]
+
+            # If reached destination, return the minimum effort
+            if Row == n - 1 and Col == m - 1:
+                return difference
+
+            # Explore all 4 directions
             for i in range(4):
-                row = delr[i] + Row
-                col = delc[i] + Col
-
-                if 0<= row < n and 0 <= col < m :
-                    neweffort = max(abs(heights[row][col] - heights[Row][Col]),difference)
+                row, col = Row + delr[i], Col + delc[i]
+                if 0 <= row < n and 0 <= col < m:
+                    # Effort of this move = max of current effort and height diff
+                    neweffort = max(difference, abs(heights[row][col] - heights[Row][Col]))
                     if neweffort < dist[row][col]:
-                        # push to the pq
-                        heapq.heappush(pq,(neweffort,row,col))
                         dist[row][col] = neweffort
+                        heapq.heappush(pq, (neweffort, row, col))
 
-
-        return dist[n-1][m-1]
+        # Return effort to reach bottom-right cell
+        return dist[n - 1][m - 1]

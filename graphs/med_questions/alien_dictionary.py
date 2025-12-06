@@ -9,7 +9,7 @@ class Solution:
        # so we first need to create a adj list of size k 
        # and then we need to find the neighbours ( who is connected to whom)
        # this can be done by comparing letters in between 2 adjacent words in dict and see who comes
-       # in front of whon ( that is who is connected to whom in our graph)
+       # in front of whom ( that is who is connected to whom in our graph)
        # then when we have our grapsh we can return the order of words in the alien language
 
        # first step , built the graph
@@ -62,4 +62,4 @@ class Solution:
 
         # now just return the ans in string format
        return ''.join(chr(i+ord('a')) for i in ans)
-             
+                      

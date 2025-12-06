@@ -1,75 +1,36 @@
-from typing import Optional
-# Definition for singly-linked list.
-class ListNode:
-     def __init__(self, val=0, next=None):
-         self.val = val
-         self.next = next
-class Solution:
-    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        # trail to test my new keyboard
-        # doing in normal method
-        if head is not None:
-            right = head.next # pointer to the right of head
-        else:
-            return None
-        left = None # this is the left most pointer
-        temp = head
-        while temp is not None:
-            temp.next = left
-            left = temp
-            temp = right
-            if right is not None:
-                right = right.next
-            else:
-                right = None
-        return left
-    def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        # find the lenght of the ll
-        temp = head
-        count = 0
-        while temp:
-            count+=1
-            temp = temp.next
-        
-        middle = count//2 + 1
-        temp = head
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import signal
 
-        while middle!=1 and temp:
-            middle-=1
-            temp = temp.next
-            
-        
-        return temp
-    class Solution:
-        def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
-            # we know this from the merge sort video
-            temp = ListNode(0)
-            head = temp
-            temp1 = list1
-            temp2 = list2
+# Time vector
+t = np.linspace(0, 1.5, 500)
 
-            while temp1 is not None and temp2 is not None:
-                if ( temp1 is not None and temp2 is not None) and temp1.val>=temp2.val:
-                    temp.next = temp2
-                    temp = temp.next
-                    temp2 = temp2.next
-                if ( temp1 is not None and temp2 is not None) and temp1.val<temp2.val:
-                    temp.next = temp1
-                    temp = temp.next
-                    temp1 = temp1.next
-            # we still have to nadd the remaining elemnets
-            while temp1 is None and temp2 is not None:
-                # add the remainig temp2 elements
-                temp.next = temp2
-                temp = temp.next
-                temp2 = temp2.next
-            while temp1 is not None and temp2 is None:
-                # add the remainig temp2 elements
-                temp.next = temp1
-                temp = temp.next
-                temp1 = temp1.next
-            return head.next
+# System 1: Without PD Control
+# G(s) = 100 / (s^2 + 12s) -> CLTF = 100 / (s^2 + 12s + 100)
+num1 = [100]
+den1 = [1, 12, 100]
+sys1 = signal.TransferFunction(num1, den1)
+t1, y1 = signal.step(sys1, T=t)
 
+# System 2: With PD Control
+# G(s) = (3.33s + 100) / (s^2 + 12s) -> CLTF = (3.33s + 100) / (s^2 + 15.33s + 100)
+# Note: The Zero at -30 is included in the numerator
+num2 = [3.333, 100]
+den2 = [1, 15.333, 100]
+sys2 = signal.TransferFunction(num2, den2)
+t2, y2 = signal.step(sys2, T=t)
+
+# Plotting
+plt.figure(figsize=(10, 6))
+plt.plot(t1, y1, label='Without PD Control (M_p ~9.5%)', linewidth=2)
+plt.plot(t2, y2, label='With PD Control (M_p ~2.4%)', linewidth=2)
+plt.axhline(1, color='k', linestyle='--', alpha=0.5, label='Steady State')
+plt.title('Step Response Comparison: With vs Without PD Control')
+plt.xlabel('Time (seconds)')
+plt.ylabel('Amplitude')
+plt.grid(True, which='both', linestyle='--', alpha=0.7)
+plt.legend()
+plt.show()
 
 
 

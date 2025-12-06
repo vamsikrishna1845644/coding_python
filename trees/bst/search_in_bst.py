@@ -9,7 +9,7 @@ class Solution:
         if node.val == val:
             return node
         if val<node.val:
-            self.recursive( node.left ,val)
+           return self.recursive( node.left ,val)
         if val>node.val:
-           self.recursive( node.right ,val)
+            return self.recursive( node.right ,val)
         

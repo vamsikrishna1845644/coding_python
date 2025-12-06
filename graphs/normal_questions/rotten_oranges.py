@@ -6,32 +6,19 @@ class Solution:
         # create visited matrix
         vis = [[0]*m for _ in range(n)]
         # for all rotten oranges call bfs
-        self.time = 0
-        clock = 0
+        time = 0
+
+        q = deque()
         for i in range(n):
             for j in range(m):
                 if grid[i][j] == 2:
-                    self.bfs(i,j,clock,grid,vis)
+                    q.append([i,j,0])
                 if grid[i][j] == 1:
                     # mark them
                     vis[i][j] = 1
-        # check if there are any fresh oranges
-        for i in range(n):
-            for j in range(m):
-                if vis[i][j] == 1:
-                    return -1
-        return self.time
-    def bfs(self,row,col,clock,grid,vis):
-         # mark it as rotten
-        vis[row][col] = 2
-        n = len(grid)
-        m= len(grid[0])
-        q = deque()
-        q.append([row,col,clock])
-
         while q:
             i ,j ,clock = q.popleft()
-            self.time = max(self.time,clock) # update the max time
+            time = max(time,clock) # update the max time
 
             # check in 4 directions
             for delr in [-1,0,1]:
@@ -45,3 +32,12 @@ class Solution:
                             vis[newr][newc] = 2
                             # append it to the queue as it is a rotten
                             q.append([newr,newc,clock+1])
+        
+        # check if there are any fresh oranges
+        for i in range(n):
+            for j in range(m):
+                if vis[i][j] == 1:
+                    return -1
+        return time
+
+        

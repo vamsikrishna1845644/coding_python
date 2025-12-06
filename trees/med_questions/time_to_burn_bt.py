@@ -38,6 +38,7 @@ class Solution:
                     q.append(map1[curr])
                     visited[map1[curr]] = True
                     new_fire = True
-            time += 1
+            if new_fire:
+                time += 1
         return time
 

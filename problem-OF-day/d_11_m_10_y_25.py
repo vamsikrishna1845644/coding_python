@@ -1,8 +1,6 @@
 from typing import List
 class Solution:
     def maximumEnergy(self, energy: List[int], k: int) -> int:
-        pointer1 = 0
-        pointer2 = k
         n = len(energy)
         ans = float("-inf")
         for pointer1 in range(n):

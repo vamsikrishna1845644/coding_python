@@ -59,6 +59,7 @@ class Solution:
         else:
             # +1 because path length counts the starting cell as well
             return dist[n-1][m-1] + 1
+        
 
 
 

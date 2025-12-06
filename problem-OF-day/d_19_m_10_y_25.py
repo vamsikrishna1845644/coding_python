@@ -3,7 +3,7 @@ class Solution:
         # very easy question
         # no comments needed
 
-        # the second char of the tsring decides whats opertaion to perform to our variable
+        # the second char of the the sring decides whats opertaion to perform to our variable
 
         # the ans variable initiated
         ans = 0
